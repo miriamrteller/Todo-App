@@ -1,38 +1,25 @@
 import styled from 'styled-components';
 
-export const Overlay = styled.div<{ open: boolean }>`
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.35);
-  opacity: ${({ open }) => (open ? 1 : 0)};
-  pointer-events: ${({ open }) => (open ? 'auto' : 'none')};
-  transition: opacity 0.25s ease;
-  z-index: 1000;
-`;
-
-export const Drawer = styled.aside<{ open: boolean }>`
+export const Drawer = styled.div`
   position: fixed;
   top: 0;
   right: 0;
-  height: 100vh;
-  width: 360px;
-  max-width: 90vw;
+  height: 100%;
+  background-color: white;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.15);
+  color: black;
+  padding: 0.5rem;
+  margin: auto;
 
-  background: #ffffff;
-  box-shadow: -6px 0 20px rgba(0, 0, 0, 0.15);
+  transform: translateX(-10px);
+  opacity: 0;
+  animation: slideIn 0.2s ease-out forwards;
 
-  transform: translateX(${({ open }) => (open ? '0' : '100%')});
-  transition: transform 0.3s ease;
-
-  z-index: 1001;
-  display: flex;
-  flex-direction: column;
-`;
-
-export const DrawerHeader = styled.div`
-  padding: 16px 20px;
-  border-bottom: 1px solid #e9ecef;
-  font-weight: 600;
+  @keyframes slideIn {
+    to {
+      transform: translateX(0);
+      opacity: 1;
+    }
 `;
 
 export const TodoList = styled.ul`
@@ -57,7 +44,10 @@ export const TodoItem = styled.li<{ completed: boolean }>`
   align-items: center;
 
   text-decoration: ${({ completed }) => (completed ? 'line-through' : 'none')};
-`;
+  &:hover {
+    cursor:pointer;
+  }
+  `;
 
 export const CloseButton = styled.button`
   background: none;

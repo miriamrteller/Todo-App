@@ -10,6 +10,7 @@ const Wrapper = styled.div`
 
 const Container = styled.div`
   display: grid;
+  max-width: 800px;
   grid-template-columns: repeat(3, 1fr);
   grid-column-gap: 6px;
   grid-row-gap: 6px;

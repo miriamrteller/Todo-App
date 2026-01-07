@@ -1,25 +1,30 @@
-import { styled } from 'styled-components';
 import { useTodos } from './useTodo';
+import { Drawer, TodoList, TodoItem } from './todostyles';
+import type { Todo } from '../../api/todos';
 
-const Popout = styled.div``;
 
-export function Todo({ userId }: { userId: number | null }) {
+
+export function Todos({ userId }: { userId: number | null }) {
   const todos = useTodos(userId);
+
+  const completeTodo = (todo:Todo) => {
+    // persist completed todo
+  }
 
   if (!todos || todos.length === 0) {
     return <p>No todos found.</p>;
   }
 
   return (
-    <Popout>
-      <ul>
+    <Drawer>
+      <TodoList>
         {todos.map((todo, index) => (
-          <li key={index}>
+          <TodoItem key={index} completed={todo.completed} onClick={()=>completeTodo(todo)}>
             {todo.title} {todo.completed ? '✓' : ''}
-          </li>
+          </TodoItem>
         ))}
-      </ul>
-    </Popout>
+      </TodoList>
+    </Drawer>
   );
 }
-export default Todo;
+export default Todos;
