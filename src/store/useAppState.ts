@@ -1,49 +1,46 @@
 import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
-import { type User } from "../Types/UserTypes";
-import { type TodoList } from "../Types/TodosTypes";
+import type { TodoList } from "../Types/TodosTypes";
+import type { User } from "../Types/UserTypes";
 
 type AppState = {
-  users: User[];
-  setUsers: (users: User[]) => void;
-
-  selectedUser: number | null;
-  selectUser: (id: number) => void;
-  clearSelected: () => void;
-
   allTodos: TodoList[];
-  setAllTodos: (todos: TodoList[]) => void;
+  allUsers: User[];
+  selectedUserId: number | null;
+  setSelectedUser: (id: number | null) => void;
   toggleTodo: (userId: number, todoId: number) => void;
+  setAllTodos: (todos: TodoList[]) => void;
+  setAllUsers: (users: User[]) => void;
 };
 
 export const useAppState = create<AppState>()(
   persist(
     (set) => ({
-      // Users
-      users: [],
-      setUsers: (users: User[]) => set({ users }),
-
-      // Selected user
-      selectedUser: null,
-      selectUser: (id: number) => set({ selectedUser: id }),
-      clearSelected: () => set({ selectedUser: null }),
-
-      // Todos
       allTodos: [],
-      setAllTodos: (allTodos: TodoList[]) => set({ allTodos }),
-      toggleTodo: (userId, todoId) =>
+
+      allUsers: [],
+
+      selectedUserId: null,
+      setSelectedUser: (id) => set({ selectedUserId: id }),
+
+      setAllTodos: (todos) => set({ allTodos: todos }),
+      toggleTodo: (userId: number, todoId: number) =>
         set(state => ({
           allTodos: state.allTodos.map(todoList =>
-            todoList.userId === userId
-              ? {
+            todoList.userId !== userId
+              ? todoList
+              : {
                 ...todoList,
                 todos: todoList.todos.map(todo =>
-                  todo.id === todoId ? { ...todo, completed: !todo.completed } : todo
+                  todo.id === todoId
+                    ? { ...todo, completed: !todo.completed }
+                    : todo
                 ),
               }
-              : todoList
           ),
         })),
+
+      setAllUsers: (users) => set({ allUsers: users }),
     }),
     {
       name: "app-state",

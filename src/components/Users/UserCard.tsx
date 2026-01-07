@@ -8,13 +8,13 @@ export function UserCard({
   user: User;
 }) {
 
-  const { selectedUser, selectUser } = useAppState();
+  const { selectedUserId, setSelectedUser } = useAppState();
 
   return (
-    <Card selected={selectedUser === user.id}>
+    <Card selected={selectedUserId === user.id}>
       <Name>{user.name}</Name>
       <Username>{user.username}</Username>
-      <Button onClick={() => selectUser(user.id)}>Show Todos</Button>
+      <Button onClick={() => setSelectedUser(user.id)}>Show Todos</Button>
     </Card>
   );
 }

@@ -1,27 +1,28 @@
 import { useTodos } from './useTodo';
 import { Drawer, TodoList, TodoItem, Checkbox, TodoText, Close } from './todostyles';
 import { useAppState } from '../../store/useAppState';
+import type { Todo } from '../../Types/TodosTypes';
 
 export function Todos() {
-  const { selectedUser, clearSelected } = useAppState();
-  const { todos, toggleTodo } = useTodos(selectedUser);
+  const { setSelectedUser } = useAppState();
+  const { todos, toggleTodo } = useTodos();
 
   if (!todos) return;
 
   return (
     <Drawer>
       <TodoList>
-        <Close onClick={clearSelected}>x</Close>
+        <Close onClick={() => setSelectedUser(null)}>x</Close>
         {
           todos.length === 0
             ?
             <TodoItem>No todos here.</TodoItem>
             :
-            todos.map((todo, index) => (
+            todos.map((todo: Todo, index: number) => (
               <TodoItem key={index} completed={todo.completed} onClick={() => toggleTodo(todo.id)}>
                 <Checkbox
                   checked={todo.completed}
-                  onChange={() => toggleTodo(todo.id)} />
+                  />
                 <TodoText>{todo.title} {todo.completed ? '✓' : ''}</TodoText>
               </TodoItem>
             ))

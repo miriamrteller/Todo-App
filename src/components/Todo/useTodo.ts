@@ -1,17 +1,16 @@
-
-import { type Todo } from "../../Types/TodosTypes";
 import { useAppState } from "../../store/useAppState";
+import type { TodoList } from "../../Types/TodosTypes";
 
-export function useTodos(userId?: number | null) {
-  const { allTodos, toggleTodo } = useAppState();
+export function useTodos() {
+  const { allTodos, toggleTodo, selectedUserId } = useAppState();
 
-  const todos: Todo[] | null = userId
-    ? allTodos.find(tl => tl.userId === userId)?.todos ?? []
-    : null;
-
+  const todos =  selectedUserId
+        ? allTodos.find((todolist: TodoList) => todolist.userId === selectedUserId)?.todos ?? []
+        : null
+  
   const toggle = (todoId: number) => {
-    if (!userId) return;
-    toggleTodo(userId, todoId);
+    if (!selectedUserId) return;
+    toggleTodo(selectedUserId, todoId);
   };
 
   return { todos, toggleTodo: toggle };
