@@ -1,17 +1,15 @@
 import { useTodos } from './useTodo';
 import { Drawer, TodoList, TodoItem, Checkbox, TodoText, Close } from './todostyles';
-import { Loader, useLoading } from '../Common';
 import { useAppState } from '../../store/useAppState';
 
 export function Todos() {
   const { selectedUser, clearSelected } = useAppState();
   const { todos, toggleTodo } = useTodos(selectedUser);
-  const { loading } = useLoading();
 
   if (!todos) return;
 
-  return (<>
-    {!todos || loading ? <Loader /> : <Drawer>
+  return (
+    <Drawer>
       <TodoList>
         <Close onClick={clearSelected}>x</Close>
         {
@@ -30,7 +28,6 @@ export function Todos() {
         }
       </TodoList>
     </Drawer>
-    }
-  </>);
+  );
 }
 export default Todos;

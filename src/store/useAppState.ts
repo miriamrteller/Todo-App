@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
 import { type User } from "../Types/UserTypes";
-import { type Todo } from "../Types/TodosTypes";
+import { type TodoList } from "../Types/TodosTypes";
 
 type AppState = {
   users: User[];
@@ -11,9 +11,9 @@ type AppState = {
   selectUser: (id: number) => void;
   clearSelected: () => void;
 
-  todos: Todo[] | null;
-  setTodos: (todos: Todo[]) => void;
-  clearTodos: () => void;
+  allTodos: TodoList[];
+  setAllTodos: (todos: TodoList[]) => void;
+  toggleTodo: (userId: number, todoId: number) => void;
 };
 
 export const useAppState = create<AppState>()(
@@ -29,13 +29,25 @@ export const useAppState = create<AppState>()(
       clearSelected: () => set({ selectedUser: null }),
 
       // Todos
-      todos: null,
-      setTodos: (todos: Todo[]) => set({ todos }),
-      clearTodos: () => set({ todos: null }),
+      allTodos: [],
+      setAllTodos: (allTodos: TodoList[]) => set({ allTodos }),
+      toggleTodo: (userId, todoId) =>
+        set(state => ({
+          allTodos: state.allTodos.map(todoList =>
+            todoList.userId === userId
+              ? {
+                ...todoList,
+                todos: todoList.todos.map(todo =>
+                  todo.id === todoId ? { ...todo, completed: !todo.completed } : todo
+                ),
+              }
+              : todoList
+          ),
+        })),
     }),
     {
       name: "app-state",
-      storage: createJSONStorage(() => sessionStorage), 
+      storage: createJSONStorage(() => sessionStorage),
     }
   )
 );
