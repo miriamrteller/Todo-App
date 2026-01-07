@@ -1,8 +1,7 @@
 import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
-
-type User = { id: number; name: string };
-type Todo = { id: number; userId: number; title: string; completed: boolean };
+import { type User } from "../Types/UserTypes";
+import { type Todo } from "../Types/TodosTypes";
 
 type AppState = {
   users: User[];
@@ -12,7 +11,7 @@ type AppState = {
   selectUser: (id: number) => void;
   clearSelected: () => void;
 
-  todos: Todo[];
+  todos: Todo[] | null;
   setTodos: (todos: Todo[]) => void;
   clearTodos: () => void;
 };
@@ -30,9 +29,9 @@ export const useAppState = create<AppState>()(
       clearSelected: () => set({ selectedUser: null }),
 
       // Todos
-      todos: [],
+      todos: null,
       setTodos: (todos: Todo[]) => set({ todos }),
-      clearTodos: () => set({ todos: [] }),
+      clearTodos: () => set({ todos: null }),
     }),
     {
       name: "app-state",

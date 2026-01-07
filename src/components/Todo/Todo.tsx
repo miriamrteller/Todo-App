@@ -1,8 +1,10 @@
 import { useTodos } from './useTodo';
 import { Drawer, TodoList, TodoItem, Checkbox, TodoText, Close } from './todostyles';
 import { Loader, useLoading } from '../Common';
+import { useAppState } from '../../store/useAppState';
 
-export function Todos({ selectedUser, close }: { selectedUser: number | null; close: () => void }) {
+export function Todos() {
+  const { selectedUser, clearSelected } = useAppState();
   const { todos, toggleTodo } = useTodos(selectedUser);
   const { loading } = useLoading();
 
@@ -11,7 +13,7 @@ export function Todos({ selectedUser, close }: { selectedUser: number | null; cl
   return (<>
     {!todos || loading ? <Loader /> : <Drawer>
       <TodoList>
-        <Close onClick={close}>x</Close>
+        <Close onClick={clearSelected}>x</Close>
         {
           todos.length === 0
             ?

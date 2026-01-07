@@ -23,12 +23,7 @@ const Container = styled.div`
   }
 `;
 
-export function UserGrid(
-  { selectedUser,
-    selectUser }: {
-      selectedUser: number | null;
-      selectUser: (id: number) => void;
-    }) {
+export function UserGrid() {
 
   const { loading } = useLoading();
 
@@ -39,7 +34,7 @@ export function UserGrid(
       ) : (
         <Container>
           {users.map((u: User) => (
-            <UserCard user={u} selectedUser={selectedUser} selectUser={selectUser} />
+            <UserCard user={u} />
           ))}
         </Container>
       )}

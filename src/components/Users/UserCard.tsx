@@ -1,5 +1,6 @@
 import { styled } from 'styled-components';
 import type { User } from '../../Types/UserTypes';
+import { useAppState } from '../../store/useAppState';
 
 const Card = styled.div<{ selected?: boolean }>`
   display: flex;
@@ -42,13 +43,11 @@ const Button = styled.button`
 
 export function UserCard({
   user,
-  selectedUser,
-  selectUser
 }: {
   user: User;
-  selectedUser: number | null;
-  selectUser: (id:number) => void;
 }) {
+
+  const { selectedUser, selectUser } = useAppState();
 
   return (
     <Card selected={selectedUser === user.id}>

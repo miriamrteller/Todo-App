@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { todosData } from '../../api/todos';
 import { type Todo } from '../../Types/TodosTypes';
+import { useAppState } from '../../store/useAppState';
 
 type UseTodosReturn = {
   todos: Todo[] | null;
@@ -8,24 +9,31 @@ type UseTodosReturn = {
 };
 
 export function useTodos(userId?: number | null): UseTodosReturn {
-  const [todos, setTodos] = useState<Todo[] | null>(null);
+  const { todos, setTodos, clearTodos } = useAppState();
 
   useEffect(() => {
     if (!userId) {
-      setTodos(null);
+      clearTodos();
       return;
     }
 
     const storageKey = `todos_user_${userId}`;
     const stored = sessionStorage.getItem(storageKey);
+
+    const setInitialTodos = () =>{
+      const todosFromData = todosData.find(entry => entry.userId === userId)?.todos
+      if(todosFromData) setTodos(todosFromData);
+      else clearTodos()
+    }
+
     if (stored) {
       try {
         setTodos(JSON.parse(stored));
       } catch {
-        setTodos(todosData.find(entry => entry.userId === userId)?.todos ?? null);
+        setInitialTodos();
       }
     } else {
-      setTodos(todosData.find(entry => entry.userId === userId)?.todos ?? null);
+      setInitialTodos();
     }
   }, [userId]); 
 
