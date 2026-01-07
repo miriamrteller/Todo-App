@@ -63,7 +63,7 @@ export const Checkbox = styled.input.attrs({ type: 'checkbox' })`
 
 export const Close = styled.button`
   font-size: 18px;
-  line-height: 1;
   background-color: #4d4c4c;
   padding: 0.5rem;
+  margin-bottom: 0.5rem;
 `
