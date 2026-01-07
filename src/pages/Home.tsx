@@ -17,7 +17,7 @@ const Title = styled.h1`
 `;
 
 function Home() {
-  const [selectedId, setSelectedId] = useState(null);
+  const [selectedId, setSelectedId] = useState<number | null>(null);
 
   return (
     <Container>
