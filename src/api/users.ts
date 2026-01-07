@@ -1,8 +1,4 @@
-export type User = {
-  username: string;
-  name: string;
-  id: number;
-};
+import { type User } from'../Types/UserTypes'
 
 export const users: User[] = [
   {
@@ -27,7 +23,7 @@ export const users: User[] = [
   },
   {
     username: '@macky',
-    name: 'MacKensie Mcclure',
+    name: 'MacKensie Maclure',
     id: 3,
   },
 

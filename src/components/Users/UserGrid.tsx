@@ -1,6 +1,7 @@
 import { styled } from 'styled-components';
 import { UserCard } from './UserCard';
-import { users, type User } from '../../api/users';
+import { users } from '../../api/users';
+import { type User } from '../../Types/UserTypes';
 import { Loader, useLoading } from '../Common';
 
 const Wrapper = styled.div`

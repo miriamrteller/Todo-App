@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
-import { todosData, type Todo } from '../../api/todos';
+import { todosData } from '../../api/todos';
+import { type Todo } from '../../Types/TodosTypes';
 
 type UseTodosReturn = {
   todos: Todo[] | null;

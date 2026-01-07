@@ -1,6 +1,5 @@
 import { styled } from 'styled-components';
-import type { User } from '../../api/users';
-import { useSelectUser } from './useSelectedUser';
+import type { User } from '../../Types/UserTypes';
 
 const Card = styled.div<{ selected?: boolean }>`
   display: flex;
