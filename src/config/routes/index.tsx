@@ -1,4 +1,4 @@
-import Layout from '../../components/Layout';
+import Layout from '../../components/Common/Layout';
 import Home from '../../pages/Home';
 import NotFound from '../../pages/NotFound';
 import Error from '../../pages/Error';

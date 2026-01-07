@@ -1,5 +1,6 @@
 import { styled } from 'styled-components';
 import type { User } from '../../api/users';
+import { useSelectUser } from './useSelectedUser';
 
 const Card = styled.div<{ selected?: boolean }>`
   display: flex;
@@ -12,7 +13,12 @@ const Card = styled.div<{ selected?: boolean }>`
     cursor: pointer;
     transform: scale(1.03);
   }
-  ${(props) => props.selected && `transform: scale(1.03);`}
+  ${(props) => props.selected && `
+   transform: scale(1.03); 
+   box-shadow: 0px 0px 8px 2px rgba(173,181,189,0.75);
+   -webkit-box-shadow: 0px 0px 8px 2px rgba(173,181,189,0.75);
+   -moz-box-shadow: 0px 0px 8px 2px rgba(173,181,189,0.75);
+  `}
 `;
 
 const Name = styled.h5`
@@ -37,19 +43,19 @@ const Button = styled.button`
 
 export function UserCard({
   user,
-  setUser,
+  selectedUser,
+  selectUser
 }: {
   user: User;
-  setUser: (id: number) => void;
+  selectedUser: number | null;
+  selectUser: (id:number) => void;
 }) {
-  const selectUser = () => {
-    setUser(user.id);
-  };
+
   return (
-    <Card>
+    <Card selected={selectedUser === user.id}>
       <Name>{user.name}</Name>
       <Username>{user.username}</Username>
-      <Button onClick={selectUser}>Show Todos</Button>
+      <Button onClick={() => selectUser(user.id)}>Show Todos</Button>
     </Card>
   );
 }

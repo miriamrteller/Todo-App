@@ -1,8 +1,7 @@
 import { styled } from 'styled-components';
 import { UserCard } from './UserCard';
 import { users, type User } from '../../api/users';
-import { useEffect, useState } from 'react';
-import Loader from '../Loader';
+import { Loader, useLoading } from '../Common';
 
 const Wrapper = styled.div`
   width:80vw;
@@ -23,12 +22,13 @@ const Container = styled.div`
   }
 `;
 
-export function UserGrid({ setUser }: { setUser: (id: number) => void }) {
-  const [loading, setLoading] = useState(true);
+export function UserGrid({ selectedUser,
+  selectUser }: {
+    selectedUser: number | null;
+    selectUser: (id: number) => void;
+  }) {
 
-  useEffect(() => {
-    setTimeout(() => setLoading(false), 2000);
-  }, []);
+  const { loading } = useLoading();
 
   return (
     <Wrapper>
@@ -37,7 +37,7 @@ export function UserGrid({ setUser }: { setUser: (id: number) => void }) {
       ) : (
         <Container>
           {users.map((u: User) => (
-            <UserCard user={u} setUser={setUser} />
+            <UserCard user={u} selectedUser={selectedUser} selectUser={selectUser} />
           ))}
         </Container>
       )}

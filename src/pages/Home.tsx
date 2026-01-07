@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import UserGrid from '../components/Users/UserGrid';
-import { useState } from 'react';
 import Todos from '../components/Todo/Todo';
+import { useSelectUser } from '../components/Users/useSelectedUser';
 
 const Container = styled.div`
   padding: 2rem;
@@ -17,13 +17,13 @@ const Title = styled.h1`
 `;
 
 function Home() {
-  const [selectedId, setSelectedId] = useState<number | null>(null);
+  const { selectedUser, clearSelected, selectUser } = useSelectUser();
 
   return (
     <Container>
-      <Title onClick={()=>setSelectedId(null)}>Users</Title>
-      <UserGrid setUser={(id: number) => setSelectedId(id)} />
-      <Todos userId={selectedId} />
+      <Title onClick={clearSelected}>Users</Title>
+      <UserGrid selectUser={selectUser} selectedUser={selectedUser} />
+      <Todos selectedUser={selectedUser} />
     </Container>
   );
 }

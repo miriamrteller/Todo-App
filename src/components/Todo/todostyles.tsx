@@ -3,11 +3,12 @@ import styled from 'styled-components';
 export const Drawer = styled.div`
   position: fixed;
   top: 0;
-  right: 0;
   height: 100%;
-  background-color: white;
-  box-shadow: 0 0 12px rgba(0, 0, 0, 0.15);
-  color: black;
+  right: 0;
+  background-color: #4d4c4c;
+  box-shadow: 0px 0px 4px 1px rgba(173,181,189,0.75) ;
+  -webkit-box-shadow: 0px 0px 4px 1px rgba(173,181,189,0.75) ;
+  -moz-box-shadow: 0px 0px 4px 1px rgba(173,181,189,0.75) ;  color: black;
   padding: 0.5rem;
   margin: auto;
 
@@ -30,29 +31,36 @@ export const TodoList = styled.ul`
   overflow-y: auto;
 `;
 
-export const TodoItem = styled.li<{ completed: boolean }>`
+export const TodoItem = styled.li<{ completed?: boolean }>`
   padding: 10px 12px;
   border-radius: 6px;
   margin-bottom: 8px;
 
   background: ${({ completed }) => (completed ? '#f1f3f5' : '#f8f9fa')};
-
   color: ${({ completed }) => (completed ? '#868e96' : '#212529')};
 
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  gap: 8px;
 
   text-decoration: ${({ completed }) => (completed ? 'line-through' : 'none')};
-  &:hover {
-    cursor:pointer;
-  }
-  `;
 
-export const CloseButton = styled.button`
-  background: none;
-  border: none;
-  font-size: 14px;
-  cursor: pointer;
-  color: #495057;
+  &:hover {
+    cursor: pointer;
+  }
 `;
+
+export const TodoText = styled.span`
+  flex: 1;
+`;
+
+  export const Checkbox = styled.input.attrs({ type: 'checkbox' })`
+  width: 18px;
+  height: 18px;
+  margin-right: 12px;
+  cursor: pointer;
+`;
+
+export const Empty = styled.div`
+
+`

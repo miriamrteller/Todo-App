@@ -1,30 +1,30 @@
 import { useTodos } from './useTodo';
-import { Drawer, TodoList, TodoItem } from './todostyles';
-import type { Todo } from '../../api/todos';
+import { Drawer, TodoList, TodoItem, Checkbox, TodoText } from './todostyles';
+import { Loader, useLoading } from '../Common';
 
+export function Todos({ selectedUser }: { selectedUser: number | null }) {
+  const { todos, toggleTodo } = useTodos(selectedUser);
+  const { loading } = useLoading();
 
+  if (!todos) return;
 
-export function Todos({ userId }: { userId: number | null }) {
-  const todos = useTodos(userId);
-
-  const completeTodo = (todo:Todo) => {
-    // persist completed todo
-  }
-
-  if (!todos || todos.length === 0) {
-    return <p>No todos found.</p>;
-  }
-
-  return (
-    <Drawer>
+  return (<>
+    {!todos || loading ? <Loader /> : <Drawer>
       <TodoList>
-        {todos.map((todo, index) => (
-          <TodoItem key={index} completed={todo.completed} onClick={()=>completeTodo(todo)}>
-            {todo.title} {todo.completed ? '✓' : ''}
-          </TodoItem>
-        ))}
+
+        {todos.length === 0 ?
+          <TodoItem>No todos here.</TodoItem>
+
+          : todos.map((todo, index) => (
+            <TodoItem key={index} completed={todo.completed} onClick={() => toggleTodo(todo.id)}>
+              <Checkbox
+                checked={todo.completed}
+                onChange={() => toggleTodo(todo.id)} />
+              <TodoText>{todo.title} {todo.completed ? '✓' : ''}</TodoText>
+            </TodoItem>
+          ))}
       </TodoList>
-    </Drawer>
+    </Drawer>}</>
   );
 }
 export default Todos;
