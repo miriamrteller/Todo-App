@@ -23,7 +23,7 @@ function Home() {
     <Container>
       <Title onClick={clearSelected}>Users</Title>
       <UserGrid selectUser={selectUser} selectedUser={selectedUser} />
-      <Todos selectedUser={selectedUser} />
+      <Todos selectedUser={selectedUser} close={clearSelected} />
     </Container>
   );
 }

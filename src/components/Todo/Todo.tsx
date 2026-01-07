@@ -1,8 +1,8 @@
 import { useTodos } from './useTodo';
-import { Drawer, TodoList, TodoItem, Checkbox, TodoText } from './todostyles';
+import { Drawer, TodoList, TodoItem, Checkbox, TodoText, Close } from './todostyles';
 import { Loader, useLoading } from '../Common';
 
-export function Todos({ selectedUser }: { selectedUser: number | null }) {
+export function Todos({ selectedUser, close }: { selectedUser: number | null; close: () => void }) {
   const { todos, toggleTodo } = useTodos(selectedUser);
   const { loading } = useLoading();
 
@@ -11,20 +11,24 @@ export function Todos({ selectedUser }: { selectedUser: number | null }) {
   return (<>
     {!todos || loading ? <Loader /> : <Drawer>
       <TodoList>
-
-        {todos.length === 0 ?
-          <TodoItem>No todos here.</TodoItem>
-
-          : todos.map((todo, index) => (
-            <TodoItem key={index} completed={todo.completed} onClick={() => toggleTodo(todo.id)}>
-              <Checkbox
-                checked={todo.completed}
-                onChange={() => toggleTodo(todo.id)} />
-              <TodoText>{todo.title} {todo.completed ? '✓' : ''}</TodoText>
-            </TodoItem>
-          ))}
+        <Close onClick={close}>x</Close>
+        {
+          todos.length === 0
+            ?
+            <TodoItem>No todos here.</TodoItem>
+            :
+            todos.map((todo, index) => (
+              <TodoItem key={index} completed={todo.completed} onClick={() => toggleTodo(todo.id)}>
+                <Checkbox
+                  checked={todo.completed}
+                  onChange={() => toggleTodo(todo.id)} />
+                <TodoText>{todo.title} {todo.completed ? '✓' : ''}</TodoText>
+              </TodoItem>
+            ))
+        }
       </TodoList>
-    </Drawer>}</>
-  );
+    </Drawer>
+    }
+  </>);
 }
 export default Todos;

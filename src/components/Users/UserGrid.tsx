@@ -22,11 +22,12 @@ const Container = styled.div`
   }
 `;
 
-export function UserGrid({ selectedUser,
-  selectUser }: {
-    selectedUser: number | null;
-    selectUser: (id: number) => void;
-  }) {
+export function UserGrid(
+  { selectedUser,
+    selectUser }: {
+      selectedUser: number | null;
+      selectUser: (id: number) => void;
+    }) {
 
   const { loading } = useLoading();
 

@@ -54,13 +54,16 @@ export const TodoText = styled.span`
   flex: 1;
 `;
 
-  export const Checkbox = styled.input.attrs({ type: 'checkbox' })`
+export const Checkbox = styled.input.attrs({ type: 'checkbox' })`
   width: 18px;
   height: 18px;
   margin-right: 12px;
   cursor: pointer;
 `;
 
-export const Empty = styled.div`
-
+export const Close = styled.button`
+  font-size: 18px;
+  line-height: 1;
+  background-color: #4d4c4c;
+  padding: 0.5rem;
 `
