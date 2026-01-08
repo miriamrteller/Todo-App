@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
-import type { TodoList, Todo } from "../types/TodosTypes";
+import type { TodoList } from "../types/TodosTypes";
 import type { User } from "../types/UserTypes";
 
 type AppState = {
