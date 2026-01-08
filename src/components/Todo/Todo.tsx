@@ -1,7 +1,7 @@
 import { useTodos } from './useTodo';
 import { Drawer, TodoList, TodoItem, Checkbox, TodoText, Close } from './todostyles';
 import { useAppState } from '../../store/useAppState';
-import type { Todo } from '../../Types/TodosTypes';
+import type { Todo } from '../../types/TodosTypes';
 
 export function Todos() {
   const { setSelectedUser } = useAppState();
@@ -22,7 +22,7 @@ export function Todos() {
               <TodoItem key={index} completed={todo.completed} onClick={() => toggleTodo(todo.id)}>
                 <Checkbox
                   checked={todo.completed}
-                  />
+                />
                 <TodoText>{todo.title} {todo.completed ? '✓' : ''}</TodoText>
               </TodoItem>
             ))

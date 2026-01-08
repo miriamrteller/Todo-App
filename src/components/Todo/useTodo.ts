@@ -1,17 +1,24 @@
-import { useAppState } from "../../store/useAppState";
-import type { TodoList } from "../../Types/TodosTypes";
+import { useAppState, } from "../../store/useAppState";
 
 export function useTodos() {
-  const { allTodos, toggleTodo, selectedUserId } = useAppState();
+  const { toggleTodo, selectedUserId, allTodos, filtered } = useAppState();
 
-  const todos =  selectedUserId
-        ? allTodos.find((todolist: TodoList) => todolist.userId === selectedUserId)?.todos ?? []
-        : null
+  const todos = selectedUserId ? allTodos.find(
+    l => l.userId === selectedUserId
+  )?.todos : null;
   
+  const filteredTodos = selectedUserId ? allTodos.find(
+    l => l.userId === selectedUserId
+  )?.todos.filter(t => !t.completed) : null;
+
+
   const toggle = (todoId: number) => {
     if (!selectedUserId) return;
     toggleTodo(selectedUserId, todoId);
   };
 
-  return { todos, toggleTodo: toggle };
+  return {
+    todos: filtered ? filteredTodos : todos,
+    toggleTodo: toggle,
+  }
 }

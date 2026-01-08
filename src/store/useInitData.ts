@@ -1,22 +1,24 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useAppState } from "../store/useAppState";
 import { todosData } from "../api/todos";
-import { users } from "../api/users";
-import type { TodoList } from "../Types/TodosTypes";
-import type { User } from "../Types/UserTypes";
+import { usersData } from "../api/users";
+import type { User } from "../types/UserTypes";
 
 export function useInitTodos() {
-    const { allTodos, setAllTodos, allUsers, setAllUsers } = useAppState();
-
+    const { allTodos, setAllTodos, users, setUsers } = useAppState();
+    const hasInitialized = useRef(false);
+  
     useEffect(() => {
-        if (allTodos.length === 0) {
-            setAllTodos(todosData as TodoList[]);
-        }
+      if (hasInitialized.current) return;
+      if (allTodos.length === 0) {
+        setAllTodos(todosData);
+      }
+      hasInitialized.current = true;
     }, [allTodos.length, setAllTodos]);
 
     useEffect(()=>{
-        if(allUsers.length === 0) {
-            setAllUsers(users as User[])
+        if(users.length === 0) {
+            setUsers(usersData as User[])
         }
     })
 }

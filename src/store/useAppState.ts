@@ -1,29 +1,32 @@
 import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
-import type { TodoList } from "../Types/TodosTypes";
-import type { User } from "../Types/UserTypes";
+import type { TodoList, Todo } from "../types/TodosTypes";
+import type { User } from "../types/UserTypes";
 
 type AppState = {
   allTodos: TodoList[];
-  allUsers: User[];
+  users: User[];
   selectedUserId: number | null;
+  filtered: boolean;
+
+  toggleFilter: () => void;
   setSelectedUser: (id: number | null) => void;
   toggleTodo: (userId: number, todoId: number) => void;
   setAllTodos: (todos: TodoList[]) => void;
-  setAllUsers: (users: User[]) => void;
+  setUsers: (users: User[]) => void;
 };
 
 export const useAppState = create<AppState>()(
   persist(
     (set) => ({
       allTodos: [],
-
-      allUsers: [],
-
+      users: [],
       selectedUserId: null,
-      setSelectedUser: (id) => set({ selectedUserId: id }),
+      filtered:false,
 
+      setSelectedUser: (id) => set({ selectedUserId: id, filtered: false }),
       setAllTodos: (todos) => set({ allTodos: todos }),
+      toggleFilter: () => set(state => ({filtered: !state.filtered})),
       toggleTodo: (userId: number, todoId: number) =>
         set(state => ({
           allTodos: state.allTodos.map(todoList =>
@@ -40,7 +43,7 @@ export const useAppState = create<AppState>()(
           ),
         })),
 
-      setAllUsers: (users) => set({ allUsers: users }),
+      setUsers: (users) => set({ users: users }),
     }),
     {
       name: "app-state",
@@ -48,3 +51,4 @@ export const useAppState = create<AppState>()(
     }
   )
 );
+

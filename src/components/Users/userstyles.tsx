@@ -19,6 +19,13 @@ export const Container = styled.div`
   }
 `;
 
+export const FilterButton = styled.button<{ filtered?: boolean }>`
+  margin-bottom :1rem;
+  ${props => props.filtered &&
+    `background-color: #8FABD4;
+   `
+  }
+ `;
 
 export const Card = styled.div<{ selected?: boolean }>`
   display: flex;
@@ -58,3 +65,4 @@ export const Button = styled.button`
   -webkit-box-shadow: 0px 0px 4px 1px rgba(173,181,189,0.75) ;
   -moz-box-shadow: 0px 0px 4px 1px rgba(173,181,189,0.75) ;
   `;
+

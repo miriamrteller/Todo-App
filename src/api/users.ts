@@ -1,6 +1,6 @@
-import { type User } from'../Types/UserTypes'
+import { type User } from'../types/UserTypes'
 
-export const users: User[] = [
+export const usersData: User[] = [
   {
     username: '@petrab',
     name: 'Petra Bedyl',

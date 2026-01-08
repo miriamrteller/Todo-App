@@ -1,4 +1,4 @@
-import type { User } from '../../Types/UserTypes';
+import type { User } from '../../types/UserTypes';
 import { useAppState } from '../../store/useAppState';
 import { Card, Name, Username, Button } from './userstyles';
 

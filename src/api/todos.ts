@@ -1,4 +1,4 @@
-import { type TodoList } from '../Types/TodosTypes'
+import { type TodoList } from '../types/TodosTypes'
 
 export const todosData: TodoList[] = [
   {
