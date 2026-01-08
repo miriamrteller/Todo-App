@@ -6,7 +6,6 @@ import { Wrapper, Container, FilterButton } from './userstyles';
 
 export function UserGrid() {
   const { users, toggleFilter, filtered } = useAppState();
-
   const { loading } = useLoading();
 
   return (
@@ -14,7 +13,7 @@ export function UserGrid() {
       {loading || !users ? (
         <Loader />
       ) : (<>
-        <FilterButton filtered={filtered} onClick={toggleFilter}>Show only incomplete {filtered ? '✓' : ''}</FilterButton>
+        <FilterButton filtered={filtered} onClick={toggleFilter}>Hide Completed {filtered ? '✓' : ''}</FilterButton>
         <Container>
           {users.map((u: User) => (
             <UserCard user={u} />

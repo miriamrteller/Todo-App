@@ -22,11 +22,11 @@ export const useAppState = create<AppState>()(
       allTodos: [],
       users: [],
       selectedUserId: null,
-      filtered:false,
+      filtered: false,
 
       setSelectedUser: (id) => set({ selectedUserId: id, filtered: false }),
       setAllTodos: (todos) => set({ allTodos: todos }),
-      toggleFilter: () => set(state => ({filtered: !state.filtered})),
+      toggleFilter: () => set(state => ({ filtered: !state.filtered })),
       toggleTodo: (userId: number, todoId: number) =>
         set(state => ({
           allTodos: state.allTodos.map(todoList =>
@@ -47,7 +47,7 @@ export const useAppState = create<AppState>()(
     }),
     {
       name: "app-state",
-      partialize: (state) => ({ allTodos: state.allTodos }),
+      partialize: (state) => ({ allTodos: state.allTodos, selectedUserId: state.selectedUserId }),
       storage: createJSONStorage(() => sessionStorage),
     }
   )
