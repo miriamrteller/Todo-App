@@ -47,6 +47,7 @@ export const useAppState = create<AppState>()(
     }),
     {
       name: "app-state",
+      partialize: (state) => ({ allTodos: state.allTodos }),
       storage: createJSONStorage(() => sessionStorage),
     }
   )
